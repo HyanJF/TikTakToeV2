@@ -1,19 +1,88 @@
-// TIKTAKTOE1.cpp : Este archivo contiene la función "main". La ejecución del programa comienza y termina ahí.
-//
-
 #include <iostream>
+#include <vector>
+#include <string>
+
+using namespace std;
+
+const char EMPTY = ' ';
+const char X = 'x', O = 'o';
+
+void instrution();
+char PlayerSymbol();
+char Opponent(char b);
+char AskYesNo(string question);
+char winner(const vector<char>& board);
 
 int main()
 {
-    std::cout << "Hello World!\n";
+	vector<char> board(NUM_SQUARES, EMPTY)
+	const int NUM_SQUARES = 9;
+	int move;
+
+	cout << "Bienvenido a Gato >w<, eligue una da las posiciones vacias entre 0 y 8 OwO" << endl;
+	void instrution();
+	char Player = PlayerSymbol();
+	char Computer = Opponent(Player);
+	char turn = X;
+
+	while (winner(board))
+	{
+
+	}
 }
 
-// Ejecutar programa: Ctrl + F5 o menú Depurar > Iniciar sin depurar
-// Depurar programa: F5 o menú Depurar > Iniciar depuración
+char winner(const vector<char>& board)
+{
+	
+}
 
-// Sugerencias para primeros pasos: 1. Use la ventana del Explorador de soluciones para agregar y administrar archivos
-//   2. Use la ventana de Team Explorer para conectar con el control de código fuente
-//   3. Use la ventana de salida para ver la salida de compilación y otros mensajes
-//   4. Use la ventana Lista de errores para ver los errores
-//   5. Vaya a Proyecto > Agregar nuevo elemento para crear nuevos archivos de código, o a Proyecto > Agregar elemento existente para agregar archivos de código existentes al proyecto
-//   6. En el futuro, para volver a abrir este proyecto, vaya a Archivo > Abrir > Proyecto y seleccione el archivo .sln
+void instrution(vector<char> n)
+{
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 3; i++)
+		{
+			n[i][j] = EMPTY;
+			cout << n << endl;
+		}
+	}
+}
+
+char PlayerSymbol()
+{
+	char gofirst = AskYesNo("�Quieres comenzar primero");
+	char b;
+	if (gofirst == 'y')
+	{
+		b = X;
+		return b;
+	}
+	else
+	{
+		b = O;
+		return b;
+	}
+	return b;
+}
+
+char Opponent(char b)
+{
+	if (b == X)
+	{
+		return O;
+	}
+	else
+	{
+		return X;
+	}
+}
+
+char AskYesNo(string question)
+{
+	char answer;
+	do {
+		cout << "\n" << question << "(y/n)";
+		cin >> answer;
+	} while (answer != 'y' && answer != 'n');
+	return answer;
+}
