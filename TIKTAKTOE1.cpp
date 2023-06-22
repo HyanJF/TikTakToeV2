@@ -17,16 +17,44 @@ char AskYesNo(string question);
 char winner(vector<char>& board);
 int playerMove(char Player, char Computer, vector<char>& board);
 bool IsLegal(int numb, char player, char computer, vector<char>& board);
+int Dado();
+char ParesyNones(char& D);
 
 int main()
 {
 	setlocale(LC_ALL, "spanish");
-	vector<char> board(NUM_SQUARES,	EMPTY);
+	vector<char> board(NUM_SQUARES, EMPTY);
+
+	cout << "Matriz de Pares" << endl;
+	int MatrizN[3][4] = { {2,3,1,4},
+		{9,8,7,9},
+		{3,2,1,5} };
+
+	cout << "|2|3|1|4|\n";
+	cout << "|9|8|7|9|\n";
+	cout << "|3|2|1|5|\n";
+
+	int MAux = 0, mAux = 0;
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			if (MatrizN[i][j] % 2 == 0)
+			{
+				cout << "La posicion " << i << " y " << j << " es par" << endl;
+				MAux = MAux + MatrizN[i][j];
+				mAux = mAux + ((i * 10)+ j);
+			}
+		}
+	}
+	cout << endl << "La suma de todos los pares es " << MAux << " y " << "La suma de sus posiciones es " << mAux << endl;
+	cout << "La resta es " << MAux - mAux << endl << endl;
 
 	cout << "Bienvenido a Gato >w<, eligue una da las posiciones vacias entre 0 y 8 OwO" << endl;
 	instrution();
-	cout << "\nBuena Suerte chaval@ \n";
+	cout << "\nBuena Suerte chaval@ \n" << endl;
 	char player = PlayerSymbol();
+	cout << player << endl;
 	char computer = Opponent(player);
 	char turn = X;
 	playerMove(player, computer, board);
@@ -122,6 +150,7 @@ int playerMove(char Player, char Computer, vector<char>& board)
 		TurnA = IsLegal(numb, Player, Computer, board);
 	}
 
+	return numb;
 }
 
 bool IsLegal(int numb, char player, char computer, vector<char>& board)
@@ -182,6 +211,49 @@ char winner(vector<char>& board)
 	return NO_ONE;
 }
 
+char ParesyNones(char& D)
+{
+	int Aux = 0;
+	char P = 'p', I = 'i';
+	Aux = Dado();
+	cout << Aux << endl;
+		if (Aux % 2 == 0)
+		{
+			cout << "El valor es par" << endl;
+			if (D = P)
+			{
+				return D;
+			}
+			else
+			{
+				D = I;
+				return D;
+			}
+		}
+		else if (Aux % 2 == 1)
+		{
+			cout << "El valor es impar" << endl;
+			if (D == I)
+			{
+				D = P;
+				return D;
+			}
+			else 
+			{
+				D = I;
+				return D;
+			}
+		}
+}
+
+int Dado()
+{ 
+	int Number;
+	srand(static_cast<unsigned int>(time(0)));
+	Number = 1 + (rand() % 6);
+	return Number;
+}
+
 void instrution()
 {
 	cout << "|1|2|3|\n";
@@ -191,9 +263,11 @@ void instrution()
 
 char PlayerSymbol()
 {
-	char gofirst = AskYesNo("¿Quieres comenzar primero");
+	cout << "Lanzaremos un dado, eligue tu valor" << endl;
+	char gofirst = AskYesNo("¿Quieres par(p) o impar(i) ");
 	char b;
-	if (gofirst == 'y')
+	ParesyNones(gofirst);
+	if (gofirst == 'p')
 	{
 		b = X;
 		return b;
@@ -222,8 +296,8 @@ char AskYesNo(string question)
 {
 	char answer;
 	do {
-		cout << "\n" << question << "(y/n)";
+		cout << "\n" << question << "(p/i)" << endl;
 		cin >> answer;
-	} while (answer != 'y' && answer != 'n');
+	} while (answer != 'p' && answer != 'i');
 	return answer;
 }
